@@ -178,7 +178,14 @@ function createTray() {
     tray = new Shell.TrayManager();
     tray.connect('tray-icon-added', onTrayIconAdded);
     tray.connect('tray-icon-removed', onTrayIconRemoved);
-    tray.manage_screen(global.screen, Main.panel.actor);
+
+    // Gnome 3.30 fix
+    // Patch source (0x3ax's comment): https://extensions.gnome.org/extension/1031/topicons/
+    //
+    // Was:
+    // tray.manage_screen(global.screen, Main.panel.actor);
+    tray.manage_screen(Main.panel.actor);
+
     placeTray();
 }
 
